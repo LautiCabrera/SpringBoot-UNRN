@@ -4,12 +4,15 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDate;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "Estudiante")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Estudiante {
 
     @Id
@@ -25,9 +28,6 @@ public class Estudiante {
     @Column(name = "apellido")
     private String apellido;
 
-    @Column(name = "edad")
-    private int edad;
-
     @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
 
@@ -36,15 +36,11 @@ public class Estudiante {
 
     @Column(name = "estado")
     private String estado;
+    
+    @Transient
+    private int edad;
 
-    @OneToMany(mappedBy = "estudiante")
-    private List<Inscripcion> inscripciones;
-
-    @ManyToMany
-    @JoinTable(name = "curso_estudiante",
-            joinColumns = @JoinColumn(name = "estudiante_id"),
-            inverseJoinColumns = @JoinColumn(name = "curso_id"))
-    private List<Curso> cursos;
-
+    public Estudiante(Object o, String nombre, String apellido, String email, int dni, LocalDate fechaNacimiento, int edad) {
+    }
 }
 

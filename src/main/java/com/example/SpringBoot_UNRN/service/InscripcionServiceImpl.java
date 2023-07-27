@@ -7,6 +7,8 @@ import com.example.SpringBoot_UNRN.repository.CursoRepository;
 import com.example.SpringBoot_UNRN.repository.EstudianteRepository;
 import com.example.SpringBoot_UNRN.repository.InscripcionRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -45,6 +47,32 @@ public class InscripcionServiceImpl implements InscripcionService {
         LocalDate fechaNacimiento = estudiante.getFechaNacimiento();
         Period edad = Period.between(fechaNacimiento, fechaActual);
         return edad.getYears() >= 18;
+    }
+    
+    @Transactional
+    public void save(@NotNull @Positive(message = "Se necesita un ID") Long idEstudiante,
+                              @NotNull @Positive (message =  "Se de necesita un ID")Long idCurso,
+                              LocalDate fechaInscripcion, String estado){
+
+
+        Curso curso = cursoRepository
+                .findById(idCurso)
+                .orElseThrow(()-> new RuntimeException("ID no valido"));
+
+
+        Estudiante estudiante = estudianteRepository
+                .findById(idEstudiante)
+                .orElseThrow( () -> new RuntimeException("El id del estudiante no es validad"));
+
+        Inscripcion inscripcion = new Inscripcion(
+                null,
+                estado,
+                curso,
+                estudiante,
+                fechaInscripcion
+        );
+
+        inscripcionRepository.save(inscripcion);
     }
 }
 

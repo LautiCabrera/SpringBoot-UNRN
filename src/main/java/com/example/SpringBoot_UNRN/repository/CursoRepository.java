@@ -18,31 +18,16 @@ public interface CursoRepository extends JpaRepository<Curso, Long> {
 
     // Consultas básicas
 
-    List<Curso> findAllByEstudiantes(Estudiante estudiante);
-    List<Curso> findAllByInscripcionesEstudiante(Estudiante estudiante);
-    List<Estudiante> findByDniGreaterThanAndApellido(int dni, String apellido);
-    List<Inscripcion> findByEstadoIn(String... estados);
-    List<Curso> findByFechaInicioAfter(LocalDate fecha);
-
-
-    // Consulta nativa
-
-    @Query(value = "SELECT * FROM Inscripcion WHERE estado = :estado", nativeQuery = true)
-    List<Inscripcion> findByEstadoNative(@Param("estado") String estado);
+    List<Curso> findByfechaInicio(LocalDate fechaInicio);
+    List<Curso> findAll();
 
     // Consultas personalizadas
-
-    @Query("SELECT c FROM Curso c JOIN c.inscripciones i WHERE i.estudiante.id = :estudianteId")
-    List<Curso> findAllByEstudianteId(@Param("estudianteId") Long estudianteId);
-
-    @Query("SELECT c.estudiantes FROM Curso c WHERE c.id = :cursoId")
-    List<Estudiante> findEstudiantesByCursoId(@Param("cursoId") Long cursoId);
-
-    @Query("SELECT c.estudiantes FROM Curso c")
-    Page<Estudiante> findAllEstudiantes(Pageable pageable);
-
-    @Query("SELECT c FROM Curso c WHERE c.estado = :estado")
-    List<Curso> findByEstado(@Param("estado") String estado);
+    
+    @Query (value = "DELETE c FROM Curso c WHERE id = :id ", nativeQuery = true)
+    List<Curso> deleteById(@Param("id")long id);
+    
+    @Query ("SELECT c FROM Curso c")
+    List<Curso> findAllCurso();
 
 
 }

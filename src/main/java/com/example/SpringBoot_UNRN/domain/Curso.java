@@ -5,9 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "Curso")
@@ -33,15 +31,6 @@ public class Curso {
     @Column(name = "fecha_fin")
     private LocalDate fechaFin;
 
-    @OneToMany(mappedBy = "curso")
-    private List<Inscripcion> inscripciones;
-
-    @ManyToMany(mappedBy = "estado")
-    private List<Estudiante> estudiantes;
-
-    @ManyToOne
-    @JoinColumn(name = "estudiante_id")
-    private Estudiante estudiante;
 }
 
 

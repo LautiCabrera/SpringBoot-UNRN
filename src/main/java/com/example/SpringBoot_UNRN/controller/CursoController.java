@@ -15,38 +15,25 @@ public class CursoController {
     private CursoService cursoService;
 
     @PostMapping
-    public CursoDTO saveCurso(@RequestBody CursoDTO cursoDTO) {
+    public CursoDTO save(@RequestBody CursoDTO cursoDTO){
         return cursoService.saveCurso(cursoDTO);
     }
-
     @GetMapping
-    public List<CursoDTO> all() {
-        return cursoService.findAllCursos();
+    public List<CursoDTO> all(){
+        return cursoService.findAll();
     }
-
     @GetMapping("/{id}")
-    public CursoDTO find(@PathVariable Long id) {
-        return cursoService.findCurso(id);
+    public CursoDTO find(@PathVariable long id){
+        return cursoService.find(id);
     }
 
-    @PutMapping("/{id}")
-    public CursoDTO updateCurso(@PathVariable Long id, @RequestBody CursoDTO cursoDTO) {
-        return cursoService.updateCurso(id, cursoDTO);
-    }
-
+    @PutMapping ("/{id}")
+    public CursoDTO update(@PathVariable long id, @RequestBody CursoDTO cursoDTO){
+        return cursoService.update(id, cursoDTO);
+        }
     @DeleteMapping("/{id}")
-    public void deleteCurso(@PathVariable Long id) {
-        cursoService.deleteCurso(id);
-    }
-
-    @GetMapping
-    public List<CursoDTO> findAllCursos() {
-        return cursoService.findAllCursos();
-    }
-
-    @GetMapping("/{id}")
-    public CursoDTO findCurso(@PathVariable Long id) {
-        return cursoService.findCurso(id);
+    public void delete(@PathVariable("id") long id){
+        cursoService.deleteById(id);
     }
 
 }

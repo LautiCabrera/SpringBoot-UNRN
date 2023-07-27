@@ -1,50 +1,41 @@
 package com.example.SpringBoot_UNRN.controller;
 
-import com.example.SpringBoot_UNRN.domain.Estudiante;
+import com.example.SpringBoot_UNRN.dto.EstudianteDTO;
 import com.example.SpringBoot_UNRN.service.EstudianteService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/estudiante")
 public class EstudianteController {
 
-    private final EstudianteService estudianteService;
+    @Autowired
+    private EstudianteService estudianteService;
 
-    public EstudianteController(EstudianteService estudianteService) {
-        this.estudianteService = estudianteService;
+    @PostMapping
+    public EstudianteDTO save(@RequestBody EstudianteDTO estudianteDTO){
+        return estudianteService.saveEstudiante(estudianteDTO);
+    }
+    
+    @GetMapping
+    public  List<EstudianteDTO> all() {
+        return estudianteService.findAll();
     }
 
-    @PostMapping("/estudiantes")
-    public ResponseEntity<Estudiante> crearEstudiante(@RequestBody EstudianteRequest estudianteRequest) {
-        Estudiante estudiante = estudianteService.crearEstudiante(estudianteRequest);
-        return ResponseEntity.ok(estudiante);
+    @GetMapping("/{id}")
+    public EstudianteDTO find(@PathVariable Long id){
+        return estudianteService.find(id);
     }
 
-    @GetMapping("/estudiantes")
-    public ResponseEntity<List<Estudiante>> obtenerTodosLosEstudiantes() {
-        List<Estudiante> estudiantes = estudianteService.obtenerTodosLosEstudiantes();
-        return ResponseEntity.ok(estudiantes);
+    @PutMapping ("/{id}")
+    public EstudianteDTO update(@PathVariable Long id, @RequestBody EstudianteDTO estudianteDTO){
+        return estudianteService.update(id, estudianteDTO);
     }
 
-    @GetMapping("/estudiantes/{id}")
-    public ResponseEntity<Estudiante> obtenerEstudiantePorId(@PathVariable Long id) {
-        Estudiante estudiante = estudianteService.obtenerEstudiantePorId(id);
-        return ResponseEntity.ok(estudiante);
-    }
-
-    @PutMapping("/estudiantes/{id}")
-    public ResponseEntity<Estudiante> actualizarEstudiante(@PathVariable Long id, @RequestBody EstudianteRequest estudianteRequest) {
-        Estudiante estudiante = estudianteService.actualizarEstudiante(id, estudianteRequest);
-        return ResponseEntity.ok(estudiante);
-    }
-
-    @DeleteMapping("/estudiantes/{id}")
-    public ResponseEntity<String> eliminarEstudiante(@PathVariable Long id) {
-        estudianteService.eliminarEstudiante(id);
-        return ResponseEntity.ok("Estudiante eliminado exitosamente");
+    @DeleteMapping ("/{id}")
+    public void delete(@PathVariable long id){
+        estudianteService.deleteById(id);
     }
 
 }

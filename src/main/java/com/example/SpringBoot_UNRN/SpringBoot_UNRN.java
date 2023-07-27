@@ -19,7 +19,7 @@ public class SpringBoot_UNRN {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBoot_UNRN.class, args);
 	}
-
+        /*
 	@Autowired
 	private EstudianteRepository estudianteRepository;
 
@@ -28,7 +28,7 @@ public class SpringBoot_UNRN {
 
 	@Autowired
 	private InscripcionRepository inscripcionRepository;
-
+        
 	private void saveCursos() {
 		// Crear instancias de estudiantes
 		Estudiante estudiante1 = new Estudiante();
@@ -76,14 +76,10 @@ public class SpringBoot_UNRN {
 		// Guardar inscripciones en la base de datos
 		inscripcionRepository.saveAll(Arrays.asList(inscripcion1, inscripcion2));
 
-		// Asignar inscripciones a los cursos
-		curso1.setInscripciones(Arrays.asList(inscripcion1));
-		curso2.setInscripciones(Arrays.asList(inscripcion2));
-
 		// Guardar cursos actualizados en la base de datos
 		cursoRepository.saveAll(Arrays.asList(curso1, curso2));
 
-	}
+	} */
 
 
 

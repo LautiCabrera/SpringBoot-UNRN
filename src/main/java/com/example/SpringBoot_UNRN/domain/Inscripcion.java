@@ -4,9 +4,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDate;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "Inscripcion")
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class Inscripcion {
